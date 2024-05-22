@@ -48,6 +48,38 @@ final
 Follow the same steps in this last section, but use Peru.
 Plot your three layers in R.
 
+
+```{r}
+#Importando paises
+Archivo = "C:/Users/Ricardo/Desktop/ASIES-Herramientas cuantitativas/S4. DATA/maps/World_Countries/World_Countries.shp"
+countries=st_read(Archivo)
+```
+```{r}
+#importando rios
+Archivorios = "C:/Users/Ricardo/Desktop/ASIES-Herramientas cuantitativas/S4. DATA/maps/World_Hydrography/World_Hydrography.shp"
+
+rios=st_read(Archivorios)
+```
+
+
+```{r}
+#importando ciudades
+Archivocit = "C:/Users/Ricardo/Desktop/ASIES-Herramientas cuantitativas/S4. DATA/maps/World_Cities/World_Cities.shp"
+
+ciudades=st_read(Archivocit)
+```
+
+
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+peru <- countries %>% filter(COUNTRY == 'Peru')
+```
+
+
 ```{r}
 baseLayer1=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
 final1=baseLayer1 + geom_sf(data=peru_rivers, color='blue') + geom_sf(data=peru_cities, color='red') 
