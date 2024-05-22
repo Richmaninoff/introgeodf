@@ -1,0 +1,57 @@
+---
+title: "PC2-Bardales"
+author: "r"
+date: "2022-11-05"
+output: rmdformats::downcute
+---
+
+##1. Vamos a leer el paquete GPKG 
+
+
+```{r}
+#install.packages("sf")
+```
+```{r}
+library(ggplot2)
+```
+# Cargar la librería sf
+```{r}
+library(sf)
+```
+
+```{r}
+#importamos geopackage desde git hub
+linkWorld_gpkg <- "https://raw.githubusercontent.com/Richmaninoff/introgeodf/main/maps/worldMap.gpkg"
+```
+```{r}
+#usamos st_layers para lista de las capas presentes 
+sf::st_layers(linkWorld_gpkg) 
+```
+
+```{r}
+countries=read_sf(linkWorld_gpkg,layer="countryBorders")
+rivers=read_sf(linkWorld_gpkg,layer="riverLines")
+cities=read_sf(linkWorld_gpkg,layer="cityPoints")
+```
+
+
+```{r}
+# Dibujar las capas usando ggplot2
+
+baseLayer=ggplot(data=countries)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=rivers, color='blue') + geom_sf(data=cities, color='red') 
+final
+```
+
+## Ejercicio 2
+
+Follow the same steps in this last section, but use Peru.
+Plot your three layers in R.
+
+```{r}
+baseLayer1=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
+final1=baseLayer1 + geom_sf(data=peru_rivers, color='blue') + geom_sf(data=peru_cities, color='red') 
+final1
+```
+
+
