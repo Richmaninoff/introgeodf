@@ -70,7 +70,7 @@ ciudades=st_read(Archivocit)
 ```
 
 
-
+### Creaando el objeto peru
 ```{r}
 library(dplyr)
 ```
@@ -78,12 +78,52 @@ library(dplyr)
 ```{r}
 peru <- countries %>% filter(COUNTRY == 'Peru')
 ```
+```{r}
+citiesperu_clipped <- st_intersection(ciudades, peru)
+riversperu_clipped <- st_intersection(rios, peru)
+```
+
+```{r}
+graficoperu=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
+visual1=graficoperu + geom_sf(data=riversperu_clipped, color='blue') + geom_sf(data=citiesperu_clipped, color='red') 
+visual1
+```
+
+
+## ejercicio 3. 
 
 
 ```{r}
-baseLayer1=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
-final1=baseLayer1 + geom_sf(data=peru_rivers, color='blue') + geom_sf(data=peru_cities, color='red') 
-final1
+library(rio)
+data=import("pe_airports.csv")
 ```
+
+```{r}
+#Importando los aeropuertos 
+Archivo4 = "C:/Users/Ricardo/Desktop/ASIES-Herramientas cuantitativas/S4. DATA/maps/peruoair_4326.shp"
+peruoair_4326=st_read(Archivo4)
+```
+```{r}
+#creamos la intersección 
+peru_air <- st_intersection(peruoair_4326, peru)
+```
+
+```{r}
+baseLayer=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=riversperu_clipped, color='blue') + geom_sf(data=peru_air, color='black') + geom_sf(data=citiesperu_clipped, color='red') + 
+  coord_sf(datum = st_crs(peru))
+final
+```
+## ejercicio 3. 
+```{r}
+#library(ggplot2)
+#baseLayer=ggplot(data=ame)  + geom_sf(fill='grey90') + theme_light() 
+#final=baseLayer + geom_sf(data=ame_cen,aes(color=Total_ei5_cat),size=2+ame_cen$Total_ei5) +
+ #   guides(size=NULL) +
+  #coord_sf(datum = st_crs(ame))
+
+#final
+```
+
 
 
