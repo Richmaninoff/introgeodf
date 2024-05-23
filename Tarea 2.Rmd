@@ -1,7 +1,7 @@
 ---
-title: "PC2-Bardales"
-author: "r"
-date: "2022-11-05"
+title: "Tarea 2-ASIES"
+author: "Ricardo Bardales"
+date: "2024-05-20"
 output: rmdformats::downcute
 ---
 
@@ -114,16 +114,36 @@ final=baseLayer + geom_sf(data=riversperu_clipped, color='blue') + geom_sf(data=
   coord_sf(datum = st_crs(peru))
 final
 ```
-## ejercicio 3. 
-```{r}
-#library(ggplot2)
-#baseLayer=ggplot(data=ame)  + geom_sf(fill='grey90') + theme_light() 
-#final=baseLayer + geom_sf(data=ame_cen,aes(color=Total_ei5_cat),size=2+ame_cen$Total_ei5) +
- #   guides(size=NULL) +
-  #coord_sf(datum = st_crs(ame))
+## ejercicio 4. 
 
-#final
+```{r}
+#install.packages("remotes")
 ```
+```{r}
+library(remotes)
+```
+```{r}
+america="C:/Users/Ricardo/Desktop/ASIES-Herramientas cuantitativas/S4. DATA/maps/America_2023_prjed.gpkg"
+sf::st_layers(america)
+```
+
+```{r}
+ame=read_sf(america,layer="countries")
+ame_cen=read_sf(america,layer="centroids")
+```
+
+```{r}
+library(ggplot2)
+baseLayer=ggplot(data=ame)  + geom_sf(fill='grey90') + theme_light() 
+E4=baseLayer + geom_sf(data=ame_cen,aes(color=Total_ei5_cat),size=2+ame_cen$Total_ei5) +
+    guides(size=NULL) +
+  coord_sf(datum = st_crs(ame))
+
+E4
+```
+
+
+
 
 
 
